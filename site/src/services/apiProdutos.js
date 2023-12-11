@@ -1,7 +1,6 @@
-// src/services/api.js
-const API_URL = 'http://localhost:3000/api';
+import API_URL from "./apiConfig";
 
-const api = {
+const apiProdutos = {
 
     async gravarProduto(dadosDoFormulario) {
         const resposta = await fetch(`${API_URL}/produtos/salvar-produto`, {
@@ -55,9 +54,6 @@ const api = {
         }
         
     },
-
-    // Adicione aqui outras chamadas de API conforme necessário
-
     
     async atualizarProduto(dadosDoFormulario) {
         const resposta = await fetch(`${API_URL}/produtos/atualizar-produto`, {
@@ -74,4 +70,4 @@ const api = {
 
 };
 
-export default api;
+export default apiProdutos;

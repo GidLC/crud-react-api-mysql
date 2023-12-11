@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './CadastroProdutos.css';
 import Formulario from '../../components/Formulario';
-import api from '../../services/api';
+import apiProdutos from '../../services/apiProdutos';
 import Tabela from '../../Components/Tabela';
+import AuthContext from "../../contexts/autenticaLogin";
+import Header from '../../Components/Header/Header';
 
 //Esse arquivo não realiza execuções, apenas crias os métodos, tabelas e funções
 const CadastroProduto = () => {
+  const Auth = useContext(AuthContext)
   const [mensagem, setMensagem] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [dadosDoFormulario, setDadosDoFormulario] = useState({});
@@ -25,7 +28,7 @@ const CadastroProduto = () => {
 
   const enviarFormulario = async (dadosDoFormulario) => {
     try {
-      await api.gravarProduto(dadosDoFormulario)
+      await apiProdutos.gravarProduto(dadosDoFormulario)
       setMensagem('Produto salvo com sucesso');
       carregarProdutos();
     } catch (error) {
@@ -36,7 +39,7 @@ const CadastroProduto = () => {
 
   const carregarProdutos = async () => {
     try {
-      const dados = await api.getProdutos();
+      const dados = await apiProdutos.getProdutos();
       setProdutos(dados);
     } catch (error) {
       console.error('Erro ao carregar os produtos:', error.message);
@@ -45,7 +48,7 @@ const CadastroProduto = () => {
 
   const excluirProduto = async (id) => {
     try {
-      await api.excluirProduto(id);
+      await apiProdutos.excluirProduto(id);
       const novaLista = produtos.filter((produto) => produto.id !== id);
       setProdutos(novaLista);
       carregarProdutos();
@@ -56,7 +59,7 @@ const CadastroProduto = () => {
 
   const editaProduto = async (dadosDoFormulario) => {
     try {
-      await api.editaProduto(dadosDoFormulario);
+      await apiProdutos.editaProduto(dadosDoFormulario);
       setDadosDoFormulario({});
       setEditar(false)
     } catch (error) {
@@ -67,9 +70,9 @@ const CadastroProduto = () => {
 
   const buscaProduto = async (id) => {
     try {
-      const produto = await api.getProduto(id);
+      const produto = await apiProdutos.getProduto(id);
       setDadosDoFormulario(produto);
-      console.log(typeof(produto))
+      console.log(typeof (produto))
       setEditar(true);
       setMensagem('')
     } catch (error) {
@@ -78,24 +81,27 @@ const CadastroProduto = () => {
   };
 
   return (
-    <div className="classeCSS">
-      <h1>Cadastro de Produto</h1>
-      {<Formulario
-        campos={listaForm}
-        onSubmit={editar == true ? editaProduto : enviarFormulario}
-        dadosDoFormulario={dadosDoFormulario}
-        setDadosDoFormulario={setDadosDoFormulario}
-        editar={editar} />}
-      {mensagem && <p>{mensagem}</p>}
+    <>
+      <Header />
+      <div className="classeCSS">
+        <h1>Cadastro de Produto</h1>
+        {<Formulario
+          campos={listaForm}
+          onSubmit={editar == true ? editaProduto : enviarFormulario}
+          dadosDoFormulario={dadosDoFormulario}
+          setDadosDoFormulario={setDadosDoFormulario}
+          botao={editar == true ? "SALVAR EDIÇÃO" : "CADASTRAR"} />}
+        {mensagem && <p>{mensagem}</p>}
 
-      <h2>Produtos Cadastrados</h2>
-      <Tabela
-        dados={produtos}
-        onExcluirItem={excluirProduto}
-        onEditarItem={(id) => buscaProduto(id)}
-        colunas={colunasProdutos}
-      />
-    </div>
+        <h2>Produtos Cadastrados</h2>
+        <Tabela
+          dados={produtos}
+          onExcluirItem={excluirProduto}
+          onEditarItem={(id) => buscaProduto(id)}
+          colunas={colunasProdutos}
+        />
+      </div>
+    </>
   );
 };
 

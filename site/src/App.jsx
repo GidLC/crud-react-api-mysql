@@ -1,14 +1,11 @@
 import React from 'react';
 import './App.css';
-import CadastroProduto from './Pages/CadastroProdutos';
+import AppRoutes from './router/AppRoutes';
 
 function App() {
   return (
-    <>
-      <CadastroProduto />
-      
-    </>
+    <AppRoutes/>
   );
 }
 
-export default App;
+export default AppRoutes

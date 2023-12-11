@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Formulario.css';
 
-const Formulario = ({ campos, onSubmit, dadosDoFormulario, setDadosDoFormulario, editar }) => {
+const Formulario = ({ campos, onSubmit, dadosDoFormulario, setDadosDoFormulario, botao }) => {
 
   const eventoChange = (campo, valor) => {
     setDadosDoFormulario({
@@ -12,16 +12,9 @@ const Formulario = ({ campos, onSubmit, dadosDoFormulario, setDadosDoFormulario,
 
   const eventoSubmit = (e) => {
     e.preventDefault();
-    console.log(dadosDoFormulario)
+    //console.log(dadosDoFormulario)
     onSubmit(dadosDoFormulario);
   };
-
-  /*useEffect(() => {
-    if (itemSelecionado) {
-      setDadosDoFormulario(itemSelecionado.resultado[0]);
-      console.log(dadosDoFormulario)
-    }
-  }, [itemSelecionado]);*/
   
   return (
     <form onSubmit={eventoSubmit}>
@@ -35,7 +28,7 @@ const Formulario = ({ campos, onSubmit, dadosDoFormulario, setDadosDoFormulario,
           />
         </div>
       ))}
-      <button type="submit">{editar == true ? "SALVAR EDIÇÃO" : "ENVIAR"}</button>
+      <button type="submit">{botao}</button>
     </form>
   );
 };
