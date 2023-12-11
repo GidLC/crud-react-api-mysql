@@ -48,19 +48,6 @@ class ProdutoModel {
       callback(null, results);
     });
   }
-<<<<<<< HEAD
-=======
-  
-  static listarProdutoId(id, callback) {
-    const query = 'SELECT * FROM produto WHERE id=?';
-    connection.query(query, [id], (err, results) => {
-      if (err) {
-        return callback(err, null);
-      }
-      callback(null, results);
-    });
-  }
->>>>>>> 524621787af7393346fc293904f27919e1b1a5f5
 
   static listarProdutos(callback) {
     console.log(`Produtos Listados`)

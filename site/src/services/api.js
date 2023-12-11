@@ -25,23 +25,14 @@ const api = {
         return resposta.json();
     },
 
-<<<<<<< HEAD
     async getProduto(id) {
         const resposta = await fetch(`${API_URL}/produtos/busca-produto/${id}`);
-=======
-    async buscarProdutoPorId(id) {
-        const resposta = await fetch(`${API_URL}/produtos/listar-produtos/${id}`);
->>>>>>> 524621787af7393346fc293904f27919e1b1a5f5
         if (!resposta.ok) {
             throw new Error('Erro ao carregar os produtos');
         }
         return resposta.json();
     },
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 524621787af7393346fc293904f27919e1b1a5f5
     async excluirProduto(id) {
         const resposta = await fetch(`${API_URL}/produtos/excluir-produto/${id}`, {
             method: 'DELETE',
@@ -63,7 +54,7 @@ const api = {
             throw new Error('Erro ao editar o produto API');
         }
         
-    }
+    },
 
     // Adicione aqui outras chamadas de API conforme necessário
 

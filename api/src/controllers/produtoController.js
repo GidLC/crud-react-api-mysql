@@ -72,9 +72,5 @@ const listarProdutos = (req, res) => {
   });
 };
 
-<<<<<<< HEAD
 module.exports = { salvarProduto, editarProduto, excluirProduto, listarProdutos, buscaProduto };
-=======
-module.exports = { salvarProduto, atualizarProduto, excluirProduto, listarProdutos, listarProdutoId };
->>>>>>> 524621787af7393346fc293904f27919e1b1a5f5
 
