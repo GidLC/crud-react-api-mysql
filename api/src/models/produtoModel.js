@@ -2,9 +2,9 @@
 const { connection } = require('../config');
 
 class ProdutoModel {
-  static salvarProduto(nome, preco, qtd, callback) {
-    const query = 'INSERT INTO produto (nome, preco, qtd) VALUES (?, ?, ?)';
-    connection.query(query, [nome, preco, qtd], (err, results) => {
+  static salvarProduto(id_usuario, nome, preco, qtd, callback) {
+    const query = 'INSERT INTO produto (nome, preco, qtd, id_usuario) VALUES (?, ?, ?, ?)';
+    connection.query(query, [nome, preco, qtd, id_usuario], (err, results) => {
       if (err) {
         return callback(err, null);
       }
@@ -49,10 +49,9 @@ class ProdutoModel {
     });
   }
 
-  static listarProdutos(callback) {
-    console.log(`Produtos Listados`)
-    const query = 'SELECT * FROM produto';
-    connection.query(query, (err, results) => {
+  static listarProdutos(id_usuario, callback) {
+    const query = 'SELECT * FROM produto where id_usuario = ?';
+    connection.query(query, [id_usuario], (err, results) => {
       if (err) {
         return callback(err, null);
       }

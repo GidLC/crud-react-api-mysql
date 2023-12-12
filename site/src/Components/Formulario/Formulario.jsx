@@ -12,7 +12,7 @@ const Formulario = ({ campos, onSubmit, dadosDoFormulario, setDadosDoFormulario,
 
   const eventoSubmit = (e) => {
     e.preventDefault();
-    //console.log(dadosDoFormulario)
+    console.log(dadosDoFormulario)
     onSubmit(dadosDoFormulario);
   };
   

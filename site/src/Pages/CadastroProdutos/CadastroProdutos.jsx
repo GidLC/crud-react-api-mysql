@@ -3,16 +3,15 @@ import './CadastroProdutos.css';
 import Formulario from '../../components/Formulario';
 import apiProdutos from '../../services/apiProdutos';
 import Tabela from '../../Components/Tabela';
-import AuthContext from "../../contexts/autenticaLogin";
 import Header from '../../Components/Header/Header';
 
 //Esse arquivo não realiza execuções, apenas crias os métodos, tabelas e funções
 const CadastroProduto = () => {
-  const Auth = useContext(AuthContext)
   const [mensagem, setMensagem] = useState('');
   const [produtos, setProdutos] = useState([]);
   const [dadosDoFormulario, setDadosDoFormulario] = useState({});
   const [editar, setEditar] = useState(false)
+  const usuarioArmazenado = sessionStorage.getItem('usuario');
 
   const listaForm = [
     { nome: 'nome', label: 'Nome', tipo: 'text' },
@@ -24,6 +23,7 @@ const CadastroProduto = () => {
 
   useEffect(() => {
     carregarProdutos();
+    setDadosDoFormulario({"id_usuario": (JSON.parse(usuarioArmazenado).id_usuario)})
   }, []);
 
   const enviarFormulario = async (dadosDoFormulario) => {
@@ -39,7 +39,7 @@ const CadastroProduto = () => {
 
   const carregarProdutos = async () => {
     try {
-      const dados = await apiProdutos.getProdutos();
+      const dados = await apiProdutos.getProdutos((JSON.parse(usuarioArmazenado).id_usuario));
       setProdutos(dados);
     } catch (error) {
       console.error('Erro ao carregar os produtos:', error.message);

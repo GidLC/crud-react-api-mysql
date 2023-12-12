@@ -16,8 +16,8 @@ const apiProdutos = {
     },
     
 
-    async getProdutos() {
-        const resposta = await fetch(`${API_URL}/produtos/listar-produtos`);
+    async getProdutos(id_usuario) {
+        const resposta = await fetch(`${API_URL}/produtos/listar-produtos/${id_usuario}`);
         if (!resposta.ok) {
             throw new Error('Erro ao carregar os produtos');
         }
