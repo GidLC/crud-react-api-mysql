@@ -20,6 +20,15 @@ const CadastroUsuarios = () => {
 
     }, []);
 
+    const buscaUsuario = async (id) => {
+        try {
+            const usuario = await apiAuth.getUsuario(id)
+            setDadosDoFormulario(usuario);
+        } catch (error) {
+            console.error('Erro ao encontrar usuario:', error.message);
+        }
+    };
+
     const enviarFormulario = async (dadosDoFormulario) => {
         try {
             if (dadosDoFormulario.senha == dadosDoFormulario.confSenha) {
