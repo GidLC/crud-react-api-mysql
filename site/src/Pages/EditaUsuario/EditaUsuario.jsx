@@ -37,7 +37,7 @@ const EditaUsuario = () => {
     };
 
     const excluirUsuario = async (id) => {
-        const conf = confirm("Deseja excluir seu usuário?")
+        const conf = confirm("Deseja excluir seu usuário e todos produtos a ele atribuido?")
         if (conf == true) {
             try {
                 await apiAuth.excluirUsuario(id)

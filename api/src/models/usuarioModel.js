@@ -51,12 +51,19 @@ class UsuarioModel {
   }
 
   static excluirUsuario(id, callback) {
-    const query = 'DELETE FROM usuario WHERE id_usuario=?';
-    connection.query(query, [id], (err, results) => {
+    const queryProdutos = 'DELETE FROM produto WHERE id_usuario = ?';
+    connection.query(queryProdutos, [id], (err, results) => {
       if (err) {
         return callback(err, null);
       }
-      callback(null, results);
+
+      const queryUsuario = 'DELETE FROM usuario WHERE id_usuario=?';
+      connection.query(queryUsuario, [id], (err, results) => {
+        if (err) {
+          return callback(err, null);
+        }
+        callback(null, results);
+      });
     });
   }
 
